@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block page_header %}
+    <h3>Topics</h3>
+{% endblock page_header %}
+
+{% block content %}
+    <ul>
+        {% for topic in topics %}
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    <small class="text-muted">{{ topic.date_added|date:'d.m.Y H:i' }}</small>
+                    <a href="{% url 'main:topic_entries' topic.id %}" class="btn btn-sm btn-primary">Entries</a>
+                    <a href="{% url 'main:edit_topic' topic.id %}" class="btn btn-sm btn-warning">Edit topic</a>
+                    <a href="{% url 'main:delete_topic_page' topic.id %}" class="btn btn-sm btn-danger">Delete topic</a>
+                </h4>
+                <div class="card-body">
+                    {{ topic.text|linebreaks }}
+                </div>
+            </div>
+        {% empty %}
+            <p>No topics have been added yet.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'main:new_topic' %}" class="btn btn-primary">Add new topic</a>
+{% endblock content %}

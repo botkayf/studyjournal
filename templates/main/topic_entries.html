@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block page_header %}
+    <h3>Entries for topic: {{ topic }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'main:new_entry' topic.id %}" class="btn btn-primary">Add new entry</a>
+    </p>
+    {% for entry in entries %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ entry.date_added|date:'d M, Y H:i' }}
+                <a href="{% url 'main:edit_entry' entry.id %}" class="btn btn-sm btn-warning">Edit entry</a>
+                <a href="{% url 'main:delete_entry_page' entry.id %}" class="btn btn-sm btn-danger">Delete entry</a>
+            </h4>
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+    {% empty %}
+        <p>There are no entries for this topic yet.</p>
+    {% endfor %}
+{% endblock content %}

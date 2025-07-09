@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h3>Delete topic</h3>
+{% endblock page_header %}
+
+{% block content %}
+<p>Are you sure you want to delete this topic?</p>
+<form method="post" class="form" action="{% url 'main:delete_topic_confirm' topic.id %}" >
+    {% csrf_token %}
+    <button name="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'main:topics' %}" class="btn btn-secondary">Cancel</a>
+    <input type="hidden" name="next" value="{% url 'main:topics' %}" />
+</form>
+{% endblock content %}
